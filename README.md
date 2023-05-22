@@ -128,7 +128,7 @@ To ensure the container is not able to access the internet, you can create an is
 docker network create --internal isolated_nw
 ```
 
-Then, add the `--network isolated_nw` flag to the `docker run` command.
+Then, add the `--network=isolated_nw` flag to the `docker run` command.
 
 
 # How does it work?
