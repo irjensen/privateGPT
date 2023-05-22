@@ -98,6 +98,38 @@ Type `exit` to finish the script.
 ### CLI
 The script also supports optional command-line arguments to modify its behavior. You can see a full list of these arguments by running the command ```python privateGPT.py --help``` in your terminal.
 
+# Setup with Docker
+To run the code in a Docker container, you can build the image with the following command:
+
+```shell
+docker build -t privategpt .
+```
+
+Then, if you are on Windows you can make queries with:
+
+```PowerShell
+docker run -it -v ${PWD}/db:/privateGPT/db -v ${PWD}/source_documents:/privateGPT/source_documents privategpt python3 privateGPT.py
+```
+
+And ingest documents with:
+
+```PowerShell
+docker run -it -v ${PWD}/db:/privateGPT/db -v ${PWD}/source_documents:/privateGPT/source_documents privategpt python3 ingest.py
+```
+
+The command uses Docker volumes to map `db` and `source_documents` directories in your local system to the directories in Docker container. This is to persist the data between runs and allows you to drop your documents into `./source_documents` for ingestion. 
+
+If you are on Linux or MacOS, replace `${PWD}` with `$(pwd)`.
+
+### Internet isolation
+To ensure the container is not able to access the internet, you can create an isolated network.
+
+```shell
+docker network create --internal isolated_nw
+```
+
+Then, add the `--network isolated_nw` flag to the `docker run` command.
+
 
 # How does it work?
 Selecting the right local models and the power of `LangChain` you can run the entire pipeline locally, without any data leaving your environment, and with reasonable performance.
