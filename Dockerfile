@@ -20,9 +20,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy everything into the container
 COPY . /privateGPT
 
-# Downloading the model
-# ADD https://huggingface.co/eachadea/ggml-vicuna-13b-1.1/resolve/main/ggml-vic13b-q5_1.bin /privateGPT/models/ggml-vic13b-q5_1.bin
-
 # Copy example.env to .env if it doesn't exist
 RUN if [ ! -f .env ]; then cp example.env .env; fi
 
